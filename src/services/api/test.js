@@ -1,10 +1,13 @@
 import api from "./api";
 
-export function create(test, token) {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+const token = localStorage.getItem("token");
+
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+};
+
+export function create(test) {
   return api.post("/tests", test, config);
 }
