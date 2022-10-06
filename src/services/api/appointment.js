@@ -19,3 +19,7 @@ export function list() {
 export function remove(appointmentId) {
   return api.delete(`/appointments/${appointmentId}`, config);
 }
+
+export function update(appointmentId, appointment) {
+  return api.put(`/appointments/${appointmentId}`, appointment, config);
+}
