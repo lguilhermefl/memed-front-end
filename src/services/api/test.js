@@ -15,3 +15,7 @@ export function create(test) {
 export function list() {
   return api.get("/tests", config);
 }
+
+export function remove(testId) {
+  return api.delete(`/tests/${testId}`, config);
+}
