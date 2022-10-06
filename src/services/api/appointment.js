@@ -15,3 +15,7 @@ export function create(appointment) {
 export function list() {
   return api.get("/appointments", config);
 }
+
+export function remove(appointmentId) {
+  return api.delete(`/appointments/${appointmentId}`, config);
+}
