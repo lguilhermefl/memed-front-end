@@ -11,3 +11,7 @@ const config = {
 export function create(appointment) {
   return api.post("/appointments", appointment, config);
 }
+
+export function list() {
+  return api.get("/appointments", config);
+}
