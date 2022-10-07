@@ -16,6 +16,10 @@ export function list() {
   return api.get("/tests", config);
 }
 
+export function getById(testId) {
+  return api.get(`/tests/${testId}`, config);
+}
+
 export function remove(testId) {
   return api.delete(`/tests/${testId}`, config);
 }
