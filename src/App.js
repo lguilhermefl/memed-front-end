@@ -1,7 +1,12 @@
+import UploadBox from "./components/UploadBox";
+import React from "react";
 import GlobalStyle from "./components/styles/globalStyles";
 
-function App() {
-  return <GlobalStyle />;
+export default function App() {
+  return (
+    <>
+      <GlobalStyle />
+      <UploadBox />
+    </>
+  );
 }
-
-export default App;
