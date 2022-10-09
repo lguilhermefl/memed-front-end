@@ -3,11 +3,11 @@ import "react-circular-progressbar/dist/styles.css";
 import { MdCheckCircle, MdError, MdLink } from "react-icons/md";
 import styled from "styled-components";
 
-export default function FileList({ files }) {
+export default function FileList({ files, onDelete }) {
   return (
     <Container>
-      {files.map((uploadedFile) => (
-        <li key={uploadedFile.id}>
+      {files.map((uploadedFile, index) => (
+        <li key={index}>
           <FileInfo>
             <Preview src={uploadedFile.preview} />
             <div>
@@ -15,13 +15,14 @@ export default function FileList({ files }) {
               <span>
                 {uploadedFile.readableSize}{" "}
                 {!!uploadedFile.url && (
-                  <button onClick={() => console.log("excluir")}>
+                  <button onClick={() => onDelete(uploadedFile.id)}>
                     Excluir
                   </button>
                 )}
               </span>
             </div>
           </FileInfo>
+
           <div>
             {!uploadedFile.uploaded && !uploadedFile.error && (
               <CircularProgressbar
@@ -33,6 +34,7 @@ export default function FileList({ files }) {
                 percentage={uploadedFile.progress}
               />
             )}
+
             {uploadedFile.url && (
               <a
                 href={uploadedFile.url}
@@ -42,6 +44,7 @@ export default function FileList({ files }) {
                 <MdLink style={{ marginRight: 8 }} size={24} color="#222" />
               </a>
             )}
+
             {uploadedFile.uploaded && (
               <MdCheckCircle size={24} color="#78e5d5" />
             )}
