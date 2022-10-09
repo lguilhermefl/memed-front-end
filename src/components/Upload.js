@@ -1,17 +1,13 @@
+import React, { Component } from "react";
 import Dropzone from "react-dropzone";
 import styled, { css } from "styled-components";
 
-export default function Upload({ onUpload }) {
-  const acceptedFileTypes = {
-    "image/*": [".jpg", ".jpeg", ".png"],
-    "application/pdf": [],
-  };
-
-  const renderDragMessage = (isDragActive, isDragReject) => {
+export default class Upload extends Component {
+  renderDragMessage = (isDragActive, isDragReject) => {
     if (!isDragActive) {
       return (
         <UploadMessage>
-          Arraste arquivos ou clique aqui para selecionar
+          Arraste seus arquivos ou clique aqui para selecionar...
         </UploadMessage>
       );
     }
@@ -23,22 +19,29 @@ export default function Upload({ onUpload }) {
     return <UploadMessage type="success">Solte os arquivos aqui</UploadMessage>;
   };
 
-  return (
-    <Dropzone accept={acceptedFileTypes} onDropAccepted={onUpload}>
-      {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
-        <DropContainer
-          {...getRootProps()}
-          isDragActive={isDragActive}
-          isDragReject={isDragReject}
-        >
-          <input {...getInputProps()} />
-          {renderDragMessage(isDragActive, isDragReject)}
-        </DropContainer>
-      )}
-    </Dropzone>
-  );
-}
+  render() {
+    const { onUpload } = this.props;
+    const acceptedFileTypes = {
+      "image/*": [".jpg", ".jpeg", ".png"],
+      "application/pdf": [],
+    };
 
+    return (
+      <Dropzone accept={acceptedFileTypes} onDropAccepted={onUpload}>
+        {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
+          <DropContainer
+            {...getRootProps()}
+            isDragActive={isDragActive}
+            isDragReject={isDragReject}
+          >
+            <input {...getInputProps()} />
+            {this.renderDragMessage(isDragActive, isDragReject)}
+          </DropContainer>
+        )}
+      </Dropzone>
+    );
+  }
+}
 const dragActive = css`
   border-color: #78e5d5;
 `;
