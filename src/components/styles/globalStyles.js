@@ -50,16 +50,22 @@ const GlobalStyle = createGlobalStyle`
 
     body {
         background-color: #0D6E70;
+        font-family: Raleway, sans-serif;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
     }
 
     html, body, #root {
         height: 100%;
+        overflow-y: auto;
     }
 
     button {
         cursor: pointer;
+    }
+    
+    a {
+        text-decoration: none;
     }
 `;
 
