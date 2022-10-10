@@ -7,16 +7,27 @@ export default class Upload extends Component {
     if (!isDragActive) {
       return (
         <UploadMessage>
-          Arraste seus arquivos ou clique aqui para selecionar...
+          <span>
+            Arraste seus arquivos ou clique aqui para selecionar (5MB por
+            arquivo e limite de 5 arquivos)
+          </span>
         </UploadMessage>
       );
     }
 
     if (isDragReject) {
-      return <UploadMessage type="error">Arquivo não suportado</UploadMessage>;
+      return (
+        <UploadMessage type="error">
+          <span>Arquivo não suportado</span>
+        </UploadMessage>
+      );
     }
 
-    return <UploadMessage type="success">Solte os arquivos aqui</UploadMessage>;
+    return (
+      <UploadMessage type="success">
+        <span>Solte os arquivos aqui</span>
+      </UploadMessage>
+    );
   };
 
   render() {
@@ -67,10 +78,11 @@ const messageColors = {
   success: "#78e5d5",
 };
 
-const UploadMessage = styled.p`
+const UploadMessage = styled.div`
   display: flex;
   color: ${(props) => messageColors[props.type || "default"]};
   justify-content: center;
   align-items: center;
-  padding: 15px 0;
+  text-align: center;
+  padding: 15px 10px;
 `;
