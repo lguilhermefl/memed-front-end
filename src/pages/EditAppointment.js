@@ -49,14 +49,14 @@ export default function EditAppointment() {
     e.preventDefault();
 
     setLoading(true);
+    const { title, notes } = appointment;
 
     const updatedAppointment = {
-      ...appointment,
+      title,
+      notes,
       date: dayjs(appointment.date).toISOString(),
     };
     const id = appointment.id;
-    delete updatedAppointment.id;
-    delete updatedAppointment.files;
 
     appointmentApi
       .update(id, updatedAppointment)

@@ -45,14 +45,14 @@ export default function EditTest() {
     e.preventDefault();
 
     setLoading(true);
+    const { title, notes } = test;
 
     const updatedTest = {
-      ...test,
+      title,
+      notes,
       date: dayjs(test.date).toISOString(),
     };
     const id = test.id;
-    delete updatedTest.id;
-    delete updatedTest.files;
 
     testApi
       .update(id, updatedTest)
