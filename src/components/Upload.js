@@ -9,7 +9,7 @@ export default class Upload extends Component {
         <UploadMessage>
           <span>
             Arraste seus arquivos ou clique aqui para selecionar (5MB por
-            arquivo e limite de 5 arquivos)
+            arquivo (.jpg, .jpeg, .png e pdf) e limite de 5 arquivos)
           </span>
         </UploadMessage>
       );
