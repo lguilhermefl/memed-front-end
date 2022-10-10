@@ -1,54 +1,26 @@
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
-import { MdCheckCircle, MdError, MdLink } from "react-icons/md";
+import { filesize } from "filesize";
+import { MdLink } from "react-icons/md";
 import styled from "styled-components";
 
 export default function FileList({ files, onDelete }) {
   return (
     <Container>
-      {files.map((uploadedFile, index) => (
-        <li key={index}>
+      {files?.map((file) => (
+        <li key={file.id}>
           <FileInfo>
-            <Preview src={uploadedFile.preview} />
+            <Preview src={file.url} />
             <div>
-              <strong>{uploadedFile.name}</strong>
+              <strong>{file.name}</strong>
               <span>
-                {uploadedFile.readableSize}{" "}
-                {!!uploadedFile.url && (
-                  <button onClick={() => onDelete(uploadedFile.id)}>
-                    Excluir
-                  </button>
-                )}
+                {filesize(file.size)}{" "}
+                <button onClick={(e) => onDelete(e, file.id)}>Excluir</button>
               </span>
             </div>
           </FileInfo>
-
           <div>
-            {!uploadedFile.uploaded && !uploadedFile.error && (
-              <CircularProgressbar
-                styles={{
-                  root: { width: 24 },
-                  path: { stroke: "#7159c1" },
-                }}
-                strokeWidth={10}
-                percentage={uploadedFile.progress}
-              />
-            )}
-
-            {uploadedFile.url && (
-              <a
-                href={uploadedFile.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MdLink style={{ marginRight: 8 }} size={24} color="#222" />
-              </a>
-            )}
-
-            {uploadedFile.uploaded && (
-              <MdCheckCircle size={24} color="#78e5d5" />
-            )}
-            {uploadedFile.error && <MdError size={24} color="#e57878" />}
+            <a href={file.url} target="_blank" rel="noopener noreferrer">
+              <MdLink style={{ marginRight: 8 }} size={24} color="#222" />
+            </a>
           </div>
         </li>
       ))}
@@ -56,8 +28,10 @@ export default function FileList({ files, onDelete }) {
   );
 }
 
-export const Container = styled.ul`
-  margin-top: 20px;
+const Container = styled.ul`
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
 
   li {
     display: flex;
@@ -75,7 +49,7 @@ export const Container = styled.ul`
   }
 `;
 
-export const FileInfo = styled.div`
+const FileInfo = styled.div`
   display: flex;
   align-items: center;
 
@@ -87,6 +61,9 @@ export const FileInfo = styled.div`
       font-size: 12px;
       color: #999;
       margin-top: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
       button {
         border: 0;
@@ -99,7 +76,7 @@ export const FileInfo = styled.div`
   }
 `;
 
-export const Preview = styled.div`
+const Preview = styled.div`
   width: 36px;
   height: 36px;
   border-radius: 5px;
